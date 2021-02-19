@@ -1,0 +1,51 @@
+plugins
+{
+    id "java"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+}
+
+compileJava
+{
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+}
+
+repositories
+{
+    mavenCentral()
+
+    maven
+    {
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven
+    {
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+dependencies
+{
+    compileOnly "org.spigotmc:spigot-api:" + project.spigot_version
+}
+
+shadowJar
+        {
+            project.configurations.implementation.canBeResolved = true
+            configurations = [project.configurations.implementation]
+
+            dependencies
+                    {
+
+                    }
+
+            archiveFileName = "cowsplugin-" + project.version + ".jar"
+        }
+
+task copyPluginToFolder(type: Copy) {
+    from shadowJar
+    into "server/plugins"
+}
+
+build.dependsOn(shadowJar)
+build.dependsOn(copyPluginToFolder)

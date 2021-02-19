@@ -1,0 +1,5 @@
+name: CowsPlugin
+version: 1.0.0
+author: MisterCow1
+main: me.mistercow1.cowsplugin.CowsPlugin
+api-version: 1.8.8-R0.1-SNAPSHOT
